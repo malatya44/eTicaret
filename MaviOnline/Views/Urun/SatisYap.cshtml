@@ -1,0 +1,59 @@
+﻿@model MaviOnline.Models.Sinif.SatisHareket
+@{
+    ViewBag.Title = "SatisYap";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<h2>Satış Yap</h2>
+<br />
+<form class="form-group" method="post">
+    @Html.LabelFor(x => x.Urunid)
+    <input type="text" name="Urunid" value="@ViewBag.dgr2" class="form-control" readonly />
+    <br />
+    @Html.LabelFor(x => x.Personelid)
+    @Html.DropDownListFor(x => x.Personelid, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control" })
+
+    <br />
+    @Html.LabelFor(x => x.Cariid)
+    @Html.TextBoxFor(x => x.Cariid, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.Adet)
+    <input type="number" name="Adet" class="form-control" max="10" min="0" placeholder="Adet Girin" id="txt1" onchange="multiply()">
+    <br />
+    @Html.LabelFor(x => x.Fiyat)
+    <input type="text" name="Fiyat" value="@ViewBag.dgr3" class="form-control" id="txt2" onkeyup="multiply()" />
+    <br />
+    @Html.LabelFor(x => x.ToplamTutar)
+    <input type="text" name="ToplamTutar" value="0" class="form-control" id="txt3" readonly />
+    <br />
+    <button class="btn btn-primary">Satış Yap</button>
+</form>
+
+
+@*Toplama işlemini yapan java kodu
+    <br />
+    <input type="text" id="txt1" onkeyup="sum()" />
+    <input type="text" id="txt2" onkeyup="sum()" />
+    <input type="text" id="txt3" />
+    <script>
+        function sum() {
+            var sayi1 = document.getElementById('txt1').value;
+            var sayi2 = document.getElementById('txt2').value;
+            var sonuc = parseInt(sayi1) + parseInt(sayi2);
+            if (!isNaN(sonuc)) {
+                document.getElementById('txt3').value = sonuc;
+            }
+        }
+    </script>*@
+
+@*Çarpma işlemini yapan java kodu adet* fiyat*@
+<script>
+    function multiply() {
+        var adet = document.getElementById('txt1').value;
+        var fiyat = document.getElementById('txt2').value;
+        var sonuc = parseInt(adet) * parseInt(fiyat);
+        if (!isNaN(sonuc)) {
+            document.getElementById('txt3').value = sonuc;
+        }
+    }
+</script>

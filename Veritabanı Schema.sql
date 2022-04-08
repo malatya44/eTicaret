@@ -1,0 +1,294 @@
+USE [malatya]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[__MigrationHistory](
+	[MigrationId] [nvarchar](150) NOT NULL,
+	[ContextKey] [nvarchar](300) NOT NULL,
+	[Model] [varbinary](max) NOT NULL,
+	[ProductVersion] [nvarchar](32) NOT NULL,
+ CONSTRAINT [PK_dbo.__MigrationHistory] PRIMARY KEY CLUSTERED 
+(
+	[MigrationId] ASC,
+	[ContextKey] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Admins](
+	[Adminid] [int] IDENTITY(1,1) NOT NULL,
+	[KullaniciAd] [varchar](10) NULL,
+	[Sifre] [varchar](10) NULL,
+	[Yetki] [char](1) NULL,
+ CONSTRAINT [PK_dbo.Admins] PRIMARY KEY CLUSTERED 
+(
+	[Adminid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Carilers](
+	[Cariid] [int] IDENTITY(1,1) NOT NULL,
+	[CariAd] [varchar](30) NOT NULL,
+	[CariSoyad] [varchar](30) NOT NULL,
+	[CariSehir] [varchar](13) NULL,
+	[CariMail] [varchar](50) NULL,
+	[Durum] [bit] NOT NULL,
+	[CariSifre] [varchar](20) NULL,
+ CONSTRAINT [PK_dbo.Carilers] PRIMARY KEY CLUSTERED 
+(
+	[Cariid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Departmen](
+	[Departmanid] [int] IDENTITY(1,1) NOT NULL,
+	[DepartmanAd] [varchar](30) NULL,
+	[Durum] [bit] NOT NULL,
+ CONSTRAINT [PK_dbo.Departmen] PRIMARY KEY CLUSTERED 
+(
+	[Departmanid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Detays](
+	[DetayID] [int] IDENTITY(1,1) NOT NULL,
+	[urunad] [varchar](30) NULL,
+	[urunbilgi] [varchar](2000) NULL
+) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[FaturaKalems](
+	[FaturaKalemid] [int] IDENTITY(1,1) NOT NULL,
+	[Aciklama] [varchar](100) NULL,
+	[Miktar] [int] NOT NULL,
+	[BirimFiyat] [decimal](18, 2) NOT NULL,
+	[Tutar] [decimal](18, 2) NOT NULL,
+	[Faturaid] [int] NOT NULL,
+ CONSTRAINT [PK_dbo.FaturaKalems] PRIMARY KEY CLUSTERED 
+(
+	[FaturaKalemid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Faturalars](
+	[Faturaid] [int] IDENTITY(1,1) NOT NULL,
+	[FaturaSeriNo] [char](1) NULL,
+	[FaturaSiraNo] [varchar](6) NULL,
+	[Tarih] [datetime] NOT NULL,
+	[VergiDairesi] [varchar](60) NULL,
+	[Saat] [char](5) NULL,
+	[TeslimEden] [varchar](30) NULL,
+	[TeslimAlan] [varchar](30) NULL,
+	[Toplam] [decimal](18, 2) NOT NULL,
+ CONSTRAINT [PK_dbo.Faturalars] PRIMARY KEY CLUSTERED 
+(
+	[Faturaid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Giders](
+	[GiderId] [int] IDENTITY(1,1) NOT NULL,
+	[Aciklama] [varchar](100) NULL,
+	[Tarih] [datetime] NOT NULL,
+	[Tutar] [decimal](18, 2) NOT NULL,
+ CONSTRAINT [PK_dbo.Giders] PRIMARY KEY CLUSTERED 
+(
+	[GiderId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[KargoDetays](
+	[KargoDetayid] [int] IDENTITY(1,1) NOT NULL,
+	[Aciklama] [varchar](300) NULL,
+	[TakipKodu] [varchar](11) NULL,
+	[Personel] [varchar](40) NULL,
+	[Alici] [varchar](40) NULL,
+	[Tarih] [datetime] NOT NULL,
+ CONSTRAINT [PK_dbo.KargoDetays] PRIMARY KEY CLUSTERED 
+(
+	[KargoDetayid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[KargoTakips](
+	[KargoTakipid] [int] IDENTITY(1,1) NOT NULL,
+	[TakipKodu] [varchar](11) NULL,
+	[Aciklama] [varchar](300) NULL,
+	[TarihZaman] [datetime] NOT NULL,
+ CONSTRAINT [PK_dbo.KargoTakips] PRIMARY KEY CLUSTERED 
+(
+	[KargoTakipid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Kategoris](
+	[KategoriID] [int] IDENTITY(1,1) NOT NULL,
+	[KategoriAd] [varchar](30) NULL,
+ CONSTRAINT [PK_dbo.Kategoris] PRIMARY KEY CLUSTERED 
+(
+	[KategoriID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Mesajlars](
+	[MesajID] [int] IDENTITY(1,1) NOT NULL,
+	[Gonderici] [varchar](50) NULL,
+	[Alici] [varchar](50) NULL,
+	[Konu] [varchar](50) NULL,
+	[icerik] [varchar](2000) NULL,
+	[Tarih] [smalldatetime] NOT NULL,
+ CONSTRAINT [PK_dbo.Mesajlars] PRIMARY KEY CLUSTERED 
+(
+	[MesajID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Personels](
+	[Personelid] [int] IDENTITY(1,1) NOT NULL,
+	[PersonelAd] [varchar](30) NULL,
+	[PersonelSoyad] [varchar](30) NULL,
+	[PersonelGorsel] [varchar](250) NULL,
+	[Departmanid] [int] NOT NULL,
+ CONSTRAINT [PK_dbo.Personels] PRIMARY KEY CLUSTERED 
+(
+	[Personelid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SatisHarekets](
+	[Satisid] [int] IDENTITY(1,1) NOT NULL,
+	[Tarih] [datetime] NOT NULL,
+	[Adet] [int] NOT NULL,
+	[Fiyat] [decimal](18, 2) NOT NULL,
+	[ToplamTutar] [decimal](18, 2) NOT NULL,
+	[Urunid] [int] NOT NULL,
+	[Cariid] [int] NOT NULL,
+	[Personelid] [int] NOT NULL,
+ CONSTRAINT [PK_dbo.SatisHarekets] PRIMARY KEY CLUSTERED 
+(
+	[Satisid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Uruns](
+	[Urunid] [int] IDENTITY(1,1) NOT NULL,
+	[UrunAd] [varchar](30) NULL,
+	[Marka] [varchar](30) NULL,
+	[Stok] [smallint] NOT NULL,
+	[AlisFiyat] [decimal](18, 2) NOT NULL,
+	[SatisFiyat] [decimal](18, 2) NOT NULL,
+	[Durum] [bit] NOT NULL,
+	[UrunGorsel] [varchar](250) NULL,
+	[Kategoriid] [int] NOT NULL,
+ CONSTRAINT [PK_dbo.Uruns] PRIMARY KEY CLUSTERED 
+(
+	[Urunid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Yapilacaks](
+	[Yapilacakid] [int] IDENTITY(1,1) NOT NULL,
+	[Baslik] [varchar](100) NULL,
+	[Durum] [bit] NOT NULL,
+ CONSTRAINT [PK_dbo.Yapilacaks] PRIMARY KEY CLUSTERED 
+(
+	[Yapilacakid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[FaturaKalems]  WITH CHECK ADD  CONSTRAINT [FK_dbo.FaturaKalems_dbo.Faturalars_Faturaid] FOREIGN KEY([Faturaid])
+REFERENCES [dbo].[Faturalars] ([Faturaid])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[FaturaKalems] CHECK CONSTRAINT [FK_dbo.FaturaKalems_dbo.Faturalars_Faturaid]
+GO
+ALTER TABLE [dbo].[Personels]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Personels_dbo.Departmen_Departmanid] FOREIGN KEY([Departmanid])
+REFERENCES [dbo].[Departmen] ([Departmanid])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Personels] CHECK CONSTRAINT [FK_dbo.Personels_dbo.Departmen_Departmanid]
+GO
+ALTER TABLE [dbo].[SatisHarekets]  WITH CHECK ADD  CONSTRAINT [FK_dbo.SatisHarekets_dbo.Carilers_Cariid] FOREIGN KEY([Cariid])
+REFERENCES [dbo].[Carilers] ([Cariid])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[SatisHarekets] CHECK CONSTRAINT [FK_dbo.SatisHarekets_dbo.Carilers_Cariid]
+GO
+ALTER TABLE [dbo].[SatisHarekets]  WITH CHECK ADD  CONSTRAINT [FK_dbo.SatisHarekets_dbo.Personels_Personelid] FOREIGN KEY([Personelid])
+REFERENCES [dbo].[Personels] ([Personelid])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[SatisHarekets] CHECK CONSTRAINT [FK_dbo.SatisHarekets_dbo.Personels_Personelid]
+GO
+ALTER TABLE [dbo].[SatisHarekets]  WITH CHECK ADD  CONSTRAINT [FK_dbo.SatisHarekets_dbo.Uruns_Urunid] FOREIGN KEY([Urunid])
+REFERENCES [dbo].[Uruns] ([Urunid])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[SatisHarekets] CHECK CONSTRAINT [FK_dbo.SatisHarekets_dbo.Uruns_Urunid]
+GO
+ALTER TABLE [dbo].[Uruns]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Uruns_dbo.Kategoris_Kategoriid] FOREIGN KEY([Kategoriid])
+REFERENCES [dbo].[Kategoris] ([KategoriID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Uruns] CHECK CONSTRAINT [FK_dbo.Uruns_dbo.Kategoris_Kategoriid]
+GO
