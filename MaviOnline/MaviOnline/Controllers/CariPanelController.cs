@@ -13,7 +13,7 @@ namespace MaviOnline.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            //sessionda carimailkden gelen değeri aldım
+            //sessionda carimailden gelen değeri aldım
             var mail = (string)Session["CariMail"];
             var degerler = c.Carilers.FirstOrDefault(x => x.CariMail == mail);
             ViewBag.m = mail;
@@ -22,7 +22,7 @@ namespace MaviOnline.Controllers
         }
         public ActionResult Siparislerim()
         {
-            //sessionda carimailkden gelen değeri aldım
+            //sessionda carimailden gelen değeri aldım
             var mail = (string)Session["CariMail"];
             //sisteme giriş yapan mail adresinin idisini aldık
             var id = c.Carilers.Where(x => x.CariMail == mail.ToString()).Select(y => y.Cariid).FirstOrDefault();
@@ -33,9 +33,24 @@ namespace MaviOnline.Controllers
         //Mesajlar Kısmı
         public ActionResult GelenMesajlar()
         {
-            var mesajlar = c.Mesajlars.ToList();
+            var mail = (string)Session["CariMail"];
+            var mesajlar = c.Mesajlars.Where(x => x.Alici == mail).ToList();
+           //maile gelen mesaj sayisini viewbag d1 ile view e yolladık
+            var gelensayisi = c.Mesajlars.Count(x => x.Alici == mail).ToString();
+            ViewBag.d1 = gelensayisi;
+
             return View(mesajlar);
-        } 
+        }
+        public ActionResult GidenMesajlar()
+        {
+            var mail = (string)Session["CariMail"];
+            var mesajlar = c.Mesajlars.Where(x => x.Gonderici == mail).ToList();
+            //maile giden mesaj sayisini viewbag d2 ile view e yolladık
+            var gidensayisi = c.Mesajlars.Count(x => x.Gonderici == mail).ToString();
+            ViewBag.d2 = gidensayisi;
+
+            return View(mesajlar);
+        }
         [HttpGet]
         public ActionResult YeniMesaj()
         {
