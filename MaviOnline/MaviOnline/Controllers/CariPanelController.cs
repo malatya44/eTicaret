@@ -34,32 +34,65 @@ namespace MaviOnline.Controllers
         public ActionResult GelenMesajlar()
         {
             var mail = (string)Session["CariMail"];
-            var mesajlar = c.Mesajlars.Where(x => x.Alici == mail).ToList();
-           //maile gelen mesaj sayisini viewbag d1 ile view e yolladık
+            //Gelen Mesajları orderby ile idye göre sıraladık
+            var mesajlar = c.Mesajlars.Where(x => x.Alici == mail).OrderByDescending(x=>x.MesajID).ToList();
+            //maile gelen mesaj sayisini viewbag d1 ile view e yolladık
             var gelensayisi = c.Mesajlars.Count(x => x.Alici == mail).ToString();
             ViewBag.d1 = gelensayisi;
-
-            return View(mesajlar);
-        }
-        public ActionResult GidenMesajlar()
-        {
-            var mail = (string)Session["CariMail"];
-            var mesajlar = c.Mesajlars.Where(x => x.Gonderici == mail).ToList();
             //maile giden mesaj sayisini viewbag d2 ile view e yolladık
             var gidensayisi = c.Mesajlars.Count(x => x.Gonderici == mail).ToString();
             ViewBag.d2 = gidensayisi;
 
             return View(mesajlar);
         }
+        public ActionResult GidenMesajlar()
+        {
+            var mail = (string)Session["CariMail"];
+            var mesajlar = c.Mesajlars.Where(x => x.Gonderici == mail).OrderByDescending(x => x.MesajID).ToList();
+            //maile gelen mesaj sayisini viewbag d1 ile view e yolladık
+            var gelensayisi = c.Mesajlars.Count(x => x.Alici == mail).ToString();
+            ViewBag.d1 = gelensayisi;
+            //maile giden mesaj sayisini viewbag d2 ile view e yolladık
+            var gidensayisi = c.Mesajlars.Count(x => x.Gonderici == mail).ToString();
+            ViewBag.d2 = gidensayisi;
+
+            return View(mesajlar);
+        }
+        public ActionResult MesajDetay(int id)
+        {
+            var degerler = c.Mesajlars.Where(x => x.MesajID == id).ToList();
+            var mail = (string)Session["CariMail"];
+            //maile gelen mesaj sayisini viewbag d1 ile view e yolladık
+            var gelensayisi = c.Mesajlars.Count(x => x.Alici == mail).ToString();
+            ViewBag.d1 = gelensayisi;
+            //maile giden mesaj sayisini viewbag d2 ile view e yolladık
+            var gidensayisi = c.Mesajlars.Count(x => x.Gonderici == mail).ToString();
+            ViewBag.d2 = gidensayisi;
+            return View(degerler);
+        }
+
         [HttpGet]
         public ActionResult YeniMesaj()
         {
+            var mail = (string)Session["CariMail"];
+            //maile gelen mesaj sayisini viewbag d1 ile view e yolladık
+            var gelensayisi = c.Mesajlars.Count(x => x.Alici == mail).ToString();
+            ViewBag.d1 = gelensayisi;
+            //maile giden mesaj sayisini viewbag d2 ile view e yolladık
+            var gidensayisi = c.Mesajlars.Count(x => x.Gonderici == mail).ToString();
+            ViewBag.d2 = gidensayisi;
             return View();
         }
-        //[HttpPost]
-        //public ActionResult YeniMesaj()
-        //{
-        //    return View();
-        //}
+        [HttpPost]
+        public ActionResult YeniMesaj(Mesajlar m)
+        {
+            var mail = (string)Session["CariMail"];
+            m.Tarih = DateTime.Parse(DateTime.Now.ToShortDateString());
+            m.Gonderici = mail;
+            //Mesaj yazarken gelen değeri gönderdik
+            c.Mesajlars.Add(m);
+            c.SaveChanges();
+            return View();
+        }
     }
 }
