@@ -1,0 +1,27 @@
+﻿@using MaviOnline.Models.Sinif
+@model List<KargoTakip>
+@{
+    ViewBag.Title = "CariKargoTakip";
+    Layout = "~/Views/Shared/_CariLayout.cshtml";
+    int a = 0;
+}
+
+<table class="table table-striped">
+    <tr>
+        <th>İşlem Sırası</th>
+        <th>Açıklama</th>
+        <th>Tarih</th>
+
+    </tr>
+    @foreach (var x in Model)
+    {
+        a = a + 1;
+        <tr>
+            <td>@a </td>
+            <td>@x.Aciklama</td>
+            <td>@x.TarihZaman</td>
+
+        </tr>
+    }
+</table>
+
