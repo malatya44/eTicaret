@@ -16,7 +16,7 @@ namespace MaviOnline.Controllers
         {
             //sessionda carimailden gelen değeri aldım
             var mail = (string)Session["CariMail"];
-            var degerler = c.Carilers.Where(x => x.CariMail == mail).ToList();
+            var degerler = c.Mesajlars.Where(x => x.Alici == mail).ToList();
             ViewBag.m = mail;
             //Caride Kişinin idisini getirdik
             var mailid = c.Carilers.Where(x => x.CariMail == mail).Select(y => y.Cariid).FirstOrDefault();
@@ -30,6 +30,10 @@ namespace MaviOnline.Controllers
             //Carinin Aldığı Ürün Sayısı
             var toplamurunsayisi = c.SatisHarekets.Where(x => x.Cariid == mailid).Sum(y => y.Adet);
             ViewBag.toplamurunsayisi = toplamurunsayisi;
+            //ad Soyad Değerini getir
+            var adsoyad = c.Carilers.Where(x => x.CariMail == mail).Select(y => y.CariAd + " " + y.CariSoyad).FirstOrDefault();
+            ViewBag.adsoyad = adsoyad;
+
             return View(degerler);
         }
         [Authorize]
@@ -99,7 +103,7 @@ namespace MaviOnline.Controllers
             ViewBag.d2 = gidensayisi;
             return View();
         }
-   
+
         [HttpPost]
         public ActionResult YeniMesaj(Mesajlar m)
         {
@@ -111,7 +115,7 @@ namespace MaviOnline.Controllers
             c.SaveChanges();
             return View();
         }
-        [Authorize]
+
         public ActionResult KargoTakip(string p)
         {
             var kargo = from x in c.KargoDetays select x;
@@ -121,18 +125,45 @@ namespace MaviOnline.Controllers
             return View(kargo.ToList());
 
         }
-        [Authorize]
+
         public ActionResult CariKargoTakip(string id)
         {
             var degerler = c.KargoTakips.Where(x => x.TakipKodu == id).ToList();
             return View(degerler);
         }
-        [Authorize]
+
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
             Session.Abandon();
-            return RedirectToAction("Index","Login");
+            return RedirectToAction("Index", "Login");
         }
+        //Cari profil kısmında ayarlar kısmı
+        public PartialViewResult Partial1()
+        {
+            var mail = (string)Session["CariMail"];
+            var id = c.Carilers.Where(x => x.CariMail == mail).Select(y => y.Cariid).FirstOrDefault();
+            var caribul = c.Carilers.Find(id);
+            return PartialView("Partial1", caribul);
+        }
+        public ActionResult CariBilgiGuncelle(Cariler cr)
+        {
+            var cari = c.Carilers.Find(cr.Cariid);
+            cari.CariAd = cr.CariAd;
+            cari.CariSoyad = cr.CariSoyad;
+            cari.CariMail = cr.CariMail;
+            cari.CariSehir = cr.CariSehir;
+            cari.CariSifre = cr.CariSifre;
+            c.SaveChanges();
+            return RedirectToAction("index");
+        }
+        //Cari Profil Kısmında adminden gelen duyurular
+        public PartialViewResult Partial2()
+        {
+            var veriler = c.Mesajlars.Where(x => x.Gonderici == "admin").ToList();
+            return PartialView(veriler);
+        }
+
+
     }
 }
