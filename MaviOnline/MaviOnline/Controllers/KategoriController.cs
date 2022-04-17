@@ -14,10 +14,11 @@ namespace MaviOnline.Controllers
     {
         // Tablolarım Context sınıfında tutuluyor.
         Context c = new Context();
-        public ActionResult Index(int sayfa=1)
+        public ActionResult Index(int sayfa = 1)
         {
-            // Tablolardaki verilerede To List Metoduyla ulaşıyorum. 
-            var degerler = c.Kategoris.ToList().ToPagedList(sayfa,10);
+            //Sayfalama Yapmak için nuget paketten pagedList.Mvc yi indiriyoruz
+            // Tablolardaki verilerede To List Metoduyla ulaşıyorum. Sayfalama Yapısı
+            var degerler = c.Kategoris.ToList().ToPagedList(sayfa, 4);
             return View(degerler);
         }
         //form yüklendiğinde çalışacak kısım
@@ -56,7 +57,29 @@ namespace MaviOnline.Controllers
             return RedirectToAction("index");
         }
 
-        //Sayfalama Yapmak için nuget paketten pagedList.Mvc yi indiriyoruz
+        // /Kategori/UrunleriKategorileme kısmında ürünleri seçerken kategorise etmesi için
+        public ActionResult UrunleriKategorileme()
+        {
+            KategoriUrunListele cs = new KategoriUrunListele();
+            cs.Kategoriler = new SelectList(c.Kategoris, "KategoriID", "KategoriAd");
+            cs.Urunler = new SelectList(c.Uruns, "Urunid", "UrunAd");
+            return View(cs);
+        }
+        //Ürün Kategorilerken Json Kullanımı
+        public JsonResult UrunGetir(int p)
+        {
+            var urunlistesi = (from x in c.Uruns
+                               join y in c.Kategoris
+                               on x.Kategori.KategoriID equals y.KategoriID
+                               where x.Kategori.KategoriID == p
+                               select new
+                               {
+                                   Text = x.UrunAd,
+                                   Value = x.Urunid.ToString()
+                               }).ToList();
+            return Json(urunlistesi, JsonRequestBehavior.AllowGet);
 
+
+        }
     }
 }

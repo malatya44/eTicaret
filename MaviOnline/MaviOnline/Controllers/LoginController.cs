@@ -8,6 +8,8 @@ using System.Web.Security;
 
 namespace MaviOnline.Controllers
 {
+    //her sayfada login istiyor o yüzden bu sayfaya login olmak için bağlanmamız gerek izin veriyoruz
+    [AllowAnonymous]
     public class LoginController : Controller
     {
         // GET: Login

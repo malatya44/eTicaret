@@ -152,6 +152,7 @@
     <Compile Include="Controllers\CariController.cs" />
     <Compile Include="Controllers\CariPanelController.cs" />
     <Compile Include="Controllers\DepartmanController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FaturaController.cs" />
     <Compile Include="Controllers\GaleriController.cs" />
     <Compile Include="Controllers\GrafikController.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="Models\Sinif\KargoDetay.cs" />
     <Compile Include="Models\Sinif\KargoTakip.cs" />
     <Compile Include="Models\Sinif\Kategori.cs" />
+    <Compile Include="Models\Sinif\KategoriUrunListele.cs" />
     <Compile Include="Models\Sinif\Mesajlar.cs" />
     <Compile Include="Models\Sinif\Personel.cs" />
     <Compile Include="Models\Sinif\SatisHareket.cs" />
@@ -2742,6 +2744,8 @@
     <Content Include="Views\CariPanel\Partial1.cshtml" />
     <Content Include="Views\CariPanel\Partial2.cshtml" />
     <Content Include="Views\Shared\_CariLayout -Eskisi.cshtml" />
+    <Content Include="Views\Error\PageError.cshtml" />
+    <Content Include="Views\Kategori\UrunleriKategorileme.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

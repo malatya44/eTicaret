@@ -11,7 +11,7 @@ namespace MaviOnline.Controllers
     {
         // GET: CariPanel
         Context c = new Context();
-        [Authorize]
+
         public ActionResult Index()
         {
             //sessionda carimailden gelen değeri aldım
@@ -36,7 +36,7 @@ namespace MaviOnline.Controllers
 
             return View(degerler);
         }
-        [Authorize]
+      
         public ActionResult Siparislerim()
         {
             //sessionda carimailden gelen değeri aldım
@@ -48,7 +48,7 @@ namespace MaviOnline.Controllers
             return View(degerler);
         }
         //Mesajlar Kısmı
-        [Authorize]
+       
         public ActionResult GelenMesajlar()
         {
             var mail = (string)Session["CariMail"];
@@ -63,7 +63,7 @@ namespace MaviOnline.Controllers
 
             return View(mesajlar);
         }
-        [Authorize]
+    
         public ActionResult GidenMesajlar()
         {
             var mail = (string)Session["CariMail"];
@@ -77,7 +77,7 @@ namespace MaviOnline.Controllers
 
             return View(mesajlar);
         }
-        [Authorize]
+     
         public ActionResult MesajDetay(int id)
         {
             var degerler = c.Mesajlars.Where(x => x.MesajID == id).ToList();
