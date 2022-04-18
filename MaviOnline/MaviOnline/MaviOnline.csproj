@@ -201,6 +201,7 @@
     <Compile Include="Models\Sinif\Urun.cs" />
     <Compile Include="Models\Sinif\Yapilacak.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Roller\AdminRoleProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdminLTE-3.0.4\build\config\postcss.config.js" />

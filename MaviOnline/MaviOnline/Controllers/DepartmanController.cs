@@ -16,6 +16,9 @@ namespace MaviOnline.Controllers
             var degerler = c.Departmans.Where(x => x.Durum == true).ToList();
             return View(degerler);
         }
+        //ADMİN YETKİSİ TANIMLAMA
+        [Authorize(Roles ="A")]
+
         [HttpGet]
         public ActionResult DepartmanEkle()
         {
