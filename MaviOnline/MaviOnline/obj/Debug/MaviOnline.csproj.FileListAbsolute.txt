@@ -69,4 +69,3 @@ D:\MaviOnline\MaviOnline\obj\Debug\MaviOnline.csproj.CoreCompileInputs.cache
 D:\MaviOnline\MaviOnline\obj\Debug\MaviOnline.csproj.CopyComplete
 D:\MaviOnline\MaviOnline\obj\Debug\MaviOnline.dll
 D:\MaviOnline\MaviOnline\obj\Debug\MaviOnline.pdb
-D:\GitProjeler\eTicaret\MaviOnline\MaviOnline\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll

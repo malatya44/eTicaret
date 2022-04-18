@@ -67,6 +67,12 @@ namespace MaviOnline.Controllers
             return RedirectToAction("index");
 
         }
-
+        public ActionResult Dinamik()
+        {
+            Dinamik cs = new Dinamik();
+            cs.deger1 = c.Faturalars.ToList();
+            cs.deger2 = c.FaturaKalems.ToList();
+            return View(cs);
+        }
     }
 }
